@@ -26,9 +26,9 @@ Edite o manifest com os módulos reais (veja os comentários dentro
 dele pro formato). Depois:
 
 ```bash
-./modules-toolbox.sh baixar                # clona módulos, cria remotos e worktrees
+./modules-toolbox.sh clone                 # clona módulos, cria remotos e worktrees
 ./modules-toolbox.sh update                 # atualiza módulos, remotos e worktrees
-./modules-toolbox.sh baixar|update <nome>   # só um módulo específico
+./modules-toolbox.sh clone|update <nome>    # só um módulo específico
 ./modules-toolbox.sh --version              # mostra a versão do script
 ```
 
