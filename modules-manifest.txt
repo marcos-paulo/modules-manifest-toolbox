@@ -1,0 +1,37 @@
+# modules-manifest.txt
+#
+# Lista os módulos git deste projeto e, opcionalmente, remotos extras e
+# worktrees de cada um. Três tipos de linha, cada uma começando com uma
+# palavra-chave:
+#
+#   modulo   <nome> <url> [ref]
+#   remoto   <nome-do-modulo> <nome-do-remoto> <url>
+#   worktree <nome-do-modulo> <pasta> <ref>
+#
+# modulo:
+#   - nome: pasta onde o módulo é clonado, dentro de modules/<nome>/
+#   - url:  endereço git do módulo (https ou ssh) -- vira o remoto "origin"
+#   - ref:  opcional. branch, tag ou commit. Se omitida, usa o branch
+#           padrão do remoto (HEAD)
+#
+# remoto (opcional, pode ter várias por módulo):
+#   - nome-do-modulo: precisa bater com um "nome" de uma linha modulo
+#   - nome-do-remoto: nome do remote git (ex.: fork, upstream)
+#   - url: endereço git do remoto extra
+#
+# worktree (opcional, pode ter várias por módulo):
+#   - nome-do-modulo: precisa bater com um "nome" de uma linha modulo
+#   - pasta: onde o worktree é criado. Relativa (resolvida a partir da
+#     raiz do projeto, onde fica este manifest) ou absoluta
+#   - ref: branch, tag ou commit que o worktree aponta
+#
+# Linhas em branco e iniciadas com # são ignoradas.
+#
+# Exemplos (apague e troque pelos módulos reais do seu projeto):
+#
+# modulo   foo   https://www.foo.bar/foo.git
+# modulo   baz   https://www.foo.bar/baz.git   main
+#
+# remoto   baz   fork      https://www.foo.bar/outra-conta/baz.git
+#
+# worktree baz   ../baz-dev   feature/nova-coisa
