@@ -9,13 +9,13 @@ Além dos módulos, o manifest também aceita:
 - **worktrees** de um módulo, apontando uma pasta pra um branch/ref
   específico
 
-## Instalar
+## Baixar
 
 Baixa `modules-toolbox.sh` e um `modules-manifest.txt` modelo pro
-diretório atual:
+diretório atual (só baixa arquivos, não instala nada no sistema):
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/marcos-paulo/modules-manifest-toolbox/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/marcos-paulo/modules-manifest-toolbox/main/download.sh | sh
 ```
 
 Ou copie os dois arquivos manualmente pra raiz do seu projeto.
