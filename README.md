@@ -9,11 +9,21 @@ Além dos módulos, o manifest também aceita:
 - **worktrees** de um módulo, apontando uma pasta pra um branch/ref
   específico
 
+## Instalar
+
+Baixa `modules-toolbox.sh` e um `modules-manifest.txt` modelo pro
+diretório atual:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/marcos-paulo/modules-manifest-toolbox/main/install.sh | sh
+```
+
+Ou copie os dois arquivos manualmente pra raiz do seu projeto.
+
 ## Uso
 
-Copie `modules-toolbox.sh` e `modules-manifest.txt` pra raiz do seu
-projeto. Edite o manifest com os módulos reais (veja os comentários
-dentro dele pro formato). Depois:
+Edite o manifest com os módulos reais (veja os comentários dentro
+dele pro formato). Depois:
 
 ```bash
 ./modules-toolbox.sh install               # clona módulos, cria remotos e worktrees
