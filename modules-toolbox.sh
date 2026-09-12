@@ -23,7 +23,7 @@
 
 set -euo pipefail
 
-MODULES_TOOLBOX_VERSION="0.1.0"
+MODULES_TOOLBOX_VERSION="0.2.0"
 
 PATH_SCRIPT=$(dirname "$(readlink -f "${BASH_SOURCE[0]:-$0}")")
 MANIFEST="${MODULES_MANIFEST:-$PATH_SCRIPT/modules-manifest.txt}"
