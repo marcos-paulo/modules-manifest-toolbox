@@ -38,4 +38,4 @@ else
   baixar "modules-manifest.txt" "modules-manifest.txt"
 fi
 
-echo "download.sh: pronto. Edite modules-manifest.txt e rode ./modules-toolbox.sh install" >&2
+echo "download.sh: pronto. Edite modules-manifest.txt e rode ./modules-toolbox.sh baixar" >&2

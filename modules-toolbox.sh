@@ -1,11 +1,11 @@
 #!/bin/bash
-# modules-toolbox.sh — instala/atualiza módulos git listados em modules-manifest.txt,
+# modules-toolbox.sh — baixa/atualiza módulos git listados em modules-manifest.txt,
 # incluindo remotos extras e worktrees declarados pra cada módulo.
 #
 # Uso:
-#   modules-toolbox.sh install               # clona módulos, cria remotos e worktrees
+#   modules-toolbox.sh baixar                 # clona módulos, cria remotos e worktrees
 #   modules-toolbox.sh update                 # atualiza módulos, remotos e worktrees
-#   modules-toolbox.sh install|update <nome>  # só um módulo específico (e seus remotos/worktrees)
+#   modules-toolbox.sh baixar|update <nome>   # só um módulo específico (e seus remotos/worktrees)
 #   modules-toolbox.sh --version|-v           # mostra a versão do script
 #
 # Variáveis de ambiente opcionais:
@@ -55,7 +55,7 @@ function resolver_caminho(){
 
 # --- módulos ---------------------------------------------------------------
 
-function instalar_modulo(){
+function baixar_modulo(){
   local nome="$1" url="$2" ref="${3:-}"
   local dir="$MODULES_DIR/$nome"
   if [ -d "$dir/.git" ]; then
@@ -74,7 +74,7 @@ function atualizar_modulo(){
   local nome="$1" url="$2" ref="${3:-}"
   local dir="$MODULES_DIR/$nome"
   if [ ! -d "$dir/.git" ]; then
-    log "$nome: não está clonado ainda, use 'install' primeiro"
+    log "$nome: não está clonado ainda, use 'baixar' primeiro"
     return 0
   fi
   log "$nome: atualizando"
@@ -143,7 +143,7 @@ function atualizar_worktree(){
   local pasta_resolvida
   pasta_resolvida=$(resolver_caminho "$pasta")
   if [ ! -e "$pasta_resolvida/.git" ]; then
-    log "$modulo: worktree '$pasta' não existe ainda, use 'install' primeiro"
+    log "$modulo: worktree '$pasta' não existe ainda, use 'baixar' primeiro"
     return 0
   fi
   log "$modulo: atualizando worktree em '$pasta_resolvida'"
@@ -163,9 +163,9 @@ function main(){
       echo "modules-toolbox.sh $MODULES_TOOLBOX_VERSION"
       exit 0
       ;;
-    install|update) ;;
+    baixar|update) ;;
     *)
-      echo "Uso: $(basename "$0") install|update [nome-do-modulo]" >&2
+      echo "Uso: $(basename "$0") baixar|update [nome-do-modulo]" >&2
       echo "     $(basename "$0") --version" >&2
       exit 1
       ;;
@@ -180,8 +180,8 @@ function main(){
       continue
     fi
     encontrou_alvo=1
-    if [ "$comando" = "install" ]; then
-      instalar_modulo "$nome" "$url" "$ref"
+    if [ "$comando" = "baixar" ]; then
+      baixar_modulo "$nome" "$url" "$ref"
     else
       atualizar_modulo "$nome" "$url" "$ref"
     fi
@@ -189,7 +189,7 @@ function main(){
 
   while read -r modulo nome_remoto url; do
     [ -n "$alvo" ] && [ "$modulo" != "$alvo" ] && continue
-    if [ "$comando" = "install" ]; then
+    if [ "$comando" = "baixar" ]; then
       aplicar_remoto "$modulo" "$nome_remoto" "$url"
     else
       atualizar_remoto "$modulo" "$nome_remoto" "$url"
@@ -198,7 +198,7 @@ function main(){
 
   while read -r modulo pasta ref; do
     [ -n "$alvo" ] && [ "$modulo" != "$alvo" ] && continue
-    if [ "$comando" = "install" ]; then
+    if [ "$comando" = "baixar" ]; then
       criar_worktree "$modulo" "$pasta" "$ref"
     else
       atualizar_worktree "$modulo" "$pasta" "$ref"
