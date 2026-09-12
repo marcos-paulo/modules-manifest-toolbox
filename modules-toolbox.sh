@@ -10,10 +10,12 @@
 #
 # Variáveis de ambiente opcionais:
 #   MODULES_MANIFEST=/caminho/modules-manifest.txt  (padrão: ao lado deste script)
-#   MODULES_DIR=/caminho/modules                     (padrão: ./modules ao lado deste script)
+#   MODULES_DIR=/caminho/onde/clonar                 (padrão: ao lado deste script)
 #
-# Convenção: módulos são clonados em modules/<nome>/. Essa pasta deve ficar
-# git-ignorada no host (.gitignore: "modules/*" e "!modules/.gitkeep").
+# Convenção: módulos são clonados direto na raiz do projeto (mesma pasta
+# deste script), em <nome>/, um por módulo. Adicione o nome de cada módulo
+# ao .gitignore do host -- eles não são submódulo git nem vivem numa pasta
+# única "modules/".
 #
 # Formato do manifest: ver modules-manifest.txt (linhas "modulo"/"remoto"/"worktree").
 #
@@ -25,7 +27,7 @@ MODULES_TOOLBOX_VERSION="0.1.0"
 
 PATH_SCRIPT=$(dirname "$(readlink -f "${BASH_SOURCE[0]:-$0}")")
 MANIFEST="${MODULES_MANIFEST:-$PATH_SCRIPT/modules-manifest.txt}"
-MODULES_DIR="${MODULES_DIR:-$PATH_SCRIPT/modules}"
+MODULES_DIR="${MODULES_DIR:-$PATH_SCRIPT}"
 
 function log(){
   echo "[modules-toolbox] $*" >&2

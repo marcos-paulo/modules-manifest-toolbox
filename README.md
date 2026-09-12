@@ -32,12 +32,13 @@ dele pro formato). Depois:
 ./modules-toolbox.sh --version              # mostra a versão do script
 ```
 
-Módulos são clonados em `modules/<nome>/` — adicione essa pasta ao
-`.gitignore` do seu projeto:
+Módulos são clonados direto na raiz do projeto, em `<nome>/` (não numa
+pasta `modules/` única). Adicione o nome de cada módulo ao `.gitignore`
+do seu projeto -- eles não são submódulo git:
 
 ```
-modules/*
-!modules/.gitkeep
+foo/
+baz/
 ```
 
 ## Licença

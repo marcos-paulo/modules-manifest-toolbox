@@ -9,7 +9,9 @@
 #   worktree <nome-do-modulo> <pasta> <ref>
 #
 # modulo:
-#   - nome: pasta onde o módulo é clonado, dentro de modules/<nome>/
+#   - nome: pasta onde o módulo é clonado, direto na raiz do projeto
+#     (<nome>/, ao lado deste manifest) -- adicione esse nome ao
+#     .gitignore do projeto, já que não é submódulo git
 #   - url:  endereço git do módulo (https ou ssh) -- vira o remoto "origin"
 #   - ref:  opcional. branch, tag ou commit. Se omitida, usa o branch
 #           padrão do remoto (HEAD)
