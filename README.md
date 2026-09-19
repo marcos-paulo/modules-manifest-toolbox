@@ -41,6 +41,14 @@ foo/
 baz/
 ```
 
+## Limitações
+
+- Nenhum campo do manifest (nome, url, ref, pasta, nome-do-remoto) pode
+  ter espaço -- o parsing divide a linha por espaço/tab.
+- Se um `ref` de worktree já estiver em uso em outro worktree do mesmo
+  módulo, a criação/atualização daquele worktree falha e é pulada (o
+  script continua com os demais módulos/worktrees).
+
 ## Licença
 
 MIT — ver [LICENSE](LICENSE).

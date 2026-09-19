@@ -134,7 +134,10 @@ function criar_worktree(){
     return 0
   fi
   log "$modulo: criando worktree em '$pasta_resolvida' (ref: $ref)"
-  git -C "$dir" worktree add --quiet "$pasta_resolvida" "$ref"
+  if ! git -C "$dir" worktree add --quiet "$pasta_resolvida" "$ref"; then
+    log "$modulo: falha ao criar worktree em '$pasta_resolvida' (ref '$ref' já em uso em outro worktree?), pulando"
+    return 0
+  fi
 }
 
 function atualizar_worktree(){
@@ -147,8 +150,14 @@ function atualizar_worktree(){
     return 0
   fi
   log "$modulo: atualizando worktree em '$pasta_resolvida'"
-  git -C "$dir" fetch --quiet origin
-  git -C "$pasta_resolvida" checkout --quiet "$ref"
+  if ! git -C "$dir" fetch --quiet origin; then
+    log "$modulo: falha no fetch pro worktree '$pasta_resolvida', pulando"
+    return 0
+  fi
+  if ! git -C "$pasta_resolvida" checkout --quiet "$ref"; then
+    log "$modulo: falha ao mudar worktree '$pasta_resolvida' pra ref '$ref' (ref já em uso em outro worktree?), pulando"
+    return 0
+  fi
   git -C "$pasta_resolvida" pull --quiet origin "$ref" 2>/dev/null || true
 }
 

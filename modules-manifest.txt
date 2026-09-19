@@ -29,6 +29,10 @@
 #
 # Linhas em branco e iniciadas com # são ignoradas.
 #
+# Restrição: nenhum campo (nome, url, ref, pasta, nome-do-remoto) pode ter
+# espaço. O parsing divide a linha em campos por espaço/tab, então um valor
+# com espaço quebra a leitura.
+#
 # Exemplos (apague e troque pelos módulos reais do seu projeto):
 #
 # modulo   foo   https://www.foo.bar/foo.git
