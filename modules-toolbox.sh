@@ -120,6 +120,27 @@ function atualizar_remoto(){
 
 # --- worktrees ---------------------------------------------------------------
 
+# Se a versão do git instalada suportar (>= 2.48), cria worktrees com
+# caminho relativo (git worktree add --relative-paths): o link entre
+# módulo e worktree passa a sobreviver se a árvore inteira (projeto +
+# módulos) for movida ou sincronizada pra outro caminho. Em versões mais
+# antigas do git, cai pro comportamento padrão (caminho absoluto).
+# Calculado uma vez só, na primeira vez que um worktree precisa ser criado.
+GIT_WORKTREE_FLAGS_RELATIVO=()
+GIT_WORKTREE_FLAGS_CALCULADO=0
+function flags_worktree_relativo(){
+  [ "$GIT_WORKTREE_FLAGS_CALCULADO" -eq 1 ] && return 0
+  GIT_WORKTREE_FLAGS_CALCULADO=1
+  local versao
+  versao=$(git --version | awk '{print $3}')
+  if [ "$(printf '%s\n%s\n' "2.48" "$versao" | sort -V | head -n1)" = "2.48" ]; then
+    GIT_WORKTREE_FLAGS_RELATIVO=(--relative-paths)
+    log "git $versao: worktrees com caminho relativo (--relative-paths)"
+  else
+    log "git $versao: sem suporte a --relative-paths (precisa 2.48+), worktrees com caminho absoluto"
+  fi
+}
+
 function criar_worktree(){
   local modulo="$1" pasta="$2" ref="$3"
   local dir="$MODULES_DIR/$modulo"
@@ -133,8 +154,9 @@ function criar_worktree(){
     log "$modulo: worktree já existe em '$pasta_resolvida', pulando (use 'update')"
     return 0
   fi
+  flags_worktree_relativo
   log "$modulo: criando worktree em '$pasta_resolvida' (ref: $ref)"
-  if ! git -C "$dir" worktree add --quiet "$pasta_resolvida" "$ref"; then
+  if ! git -C "$dir" worktree add --quiet "${GIT_WORKTREE_FLAGS_RELATIVO[@]}" "$pasta_resolvida" "$ref"; then
     log "$modulo: falha ao criar worktree em '$pasta_resolvida' (ref '$ref' já em uso em outro worktree?), pulando"
     return 0
   fi

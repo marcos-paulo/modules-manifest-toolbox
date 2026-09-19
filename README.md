@@ -84,6 +84,16 @@ meurepo/
     └── .git
 ```
 
+## Worktrees com caminho relativo
+
+Com git 2.48 ou mais novo, os dois scripts criam worktrees com
+`--relative-paths`: o link entre o repositório e o worktree fica
+relativo, então continua funcionando se você mover ou sincronizar a
+árvore inteira (projeto + módulos) pra outro caminho, sem precisar de
+`git worktree repair`. Detectado automaticamente pela versão do git
+instalada -- git mais antigo cai pro comportamento padrão (caminho
+absoluto), sem precisar configurar nada.
+
 ## Limitações
 
 - Nenhum campo dos manifests (nome, url, ref, pasta, nome-do-remoto)
