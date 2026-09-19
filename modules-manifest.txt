@@ -27,6 +27,10 @@
 #     raiz do projeto, onde fica este manifest) ou absoluta
 #   - ref: branch, tag ou commit que o worktree aponta
 #
+# (pra criar worktrees do PRÓPRIO repositório onde mora este manifest --
+# não de um módulo clonado -- use o modules-toolbox-self-worktrees.sh, que
+# tem seu próprio manifest, self-worktrees-manifest.txt)
+#
 # Linhas em branco e iniciadas com # são ignoradas.
 #
 # Restrição: nenhum campo (nome, url, ref, pasta, nome-do-remoto) pode ter

@@ -1,0 +1,24 @@
+# self-worktrees-manifest.txt
+#
+# Lista worktrees do PRÓPRIO repositório onde mora este manifest (a pasta
+# onde fica este arquivo precisa ser a raiz de um repositório git -- não
+# um módulo clonado à parte). Cada worktree criado vira uma pasta filha
+# dessa raiz, irmã das outras (não fica um dentro do outro).
+#
+# Uma linha por worktree, começando com a palavra-chave "worktree":
+#
+#   worktree <pasta> <ref>
+#
+#   - pasta: onde o worktree é criado. Relativa (resolvida a partir da
+#     raiz do repositório, onde fica este manifest) ou absoluta
+#   - ref: branch, tag ou commit que o worktree aponta
+#
+# Restrição: nenhum campo pode ter espaço -- o parsing divide a linha por
+# espaço/tab.
+#
+# Linhas em branco e iniciadas com # são ignoradas.
+#
+# Exemplos (apague e troque pelos worktrees reais do seu projeto):
+#
+# worktree dev         develop
+# worktree feature-x   feature/x
